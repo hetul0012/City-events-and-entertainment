@@ -1,4 +1,5 @@
 ﻿@model City_events_and_entertainment.Models.Player
+
 @{
     ViewData["Title"] = "Edit Player";
 }
@@ -16,7 +17,7 @@
 
     <div class="form-group">
         <label asp-for="Age"></label>
-        <input asp-for="Age" class="form-control" />
+        <input asp-for="Age" type="number" class="form-control" />
         <span asp-validation-for="Age" class="text-danger"></span>
     </div>
 
@@ -32,6 +33,6 @@
         <span asp-validation-for="TeamId" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-3">Update</button>
-    <a asp-action="Index" class="btn btn-secondary mt-3">Cancel</a>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
 </form>
