@@ -3,17 +3,20 @@
     ViewData["Title"] = "Bookings";
 }
 
-<h2>Bookings</h2>
-<a class="btn btn-primary mb-3" asp-action="Create">New Booking</a>
+<h2 class="text-center mb-4">All Bookings</h2>
 
-<table class="table table-striped">
-    <thead>
+<div class="text-end mb-3">
+    <a asp-action="Create" class="btn btn-success">Add Booking</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
         <tr>
             <th>Visitor Name</th>
             <th>Date</th>
             <th>Time</th>
             <th>Museum</th>
-            <th>Actions</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -25,9 +28,9 @@
                 <td>@booking.Time</td>
                 <td>@booking.Museum?.Name</td>
                 <td>
-                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@booking.Id">Details</a>
-                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@booking.Id">Edit</a>
-                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@booking.Id">Delete</a>
+                    <a asp-action="Details" asp-route-id="@booking.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@booking.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@booking.Id" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         }

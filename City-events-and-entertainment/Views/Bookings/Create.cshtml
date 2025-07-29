@@ -1,35 +1,33 @@
 ﻿@model City_events_and_entertainment.Models.Booking
 @{
-    ViewData["Title"] = "Create Booking";
+    ViewData["Title"] = "Add Booking";
 }
 
-<h2>Create Booking</h2>
+<h2 class="text-center mb-4">Create Booking</h2>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="VisitorName"></label>
+<form asp-action="Create" method="post" class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="VisitorName" class="form-label"></label>
         <input asp-for="VisitorName" class="form-control" />
         <span asp-validation-for="VisitorName" class="text-danger"></span>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Date"></label>
-        <input asp-for="Date" class="form-control" type="date" />
+    <div class="col-md-6">
+        <label asp-for="Date" class="form-label"></label>
+        <input asp-for="Date" type="date" class="form-control" />
         <span asp-validation-for="Date" class="text-danger"></span>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Time"></label>
-        <input asp-for="Time" class="form-control" type="time" />
+    <div class="col-md-6">
+        <label asp-for="Time" class="form-label"></label>
+        <input asp-for="Time" class="form-control" />
         <span asp-validation-for="Time" class="text-danger"></span>
     </div>
-
-    <div class="form-group">
-        <label asp-for="MuseumId">Museum</label>
-        <select asp-for="MuseumId" class="form-control" asp-items="ViewBag.Museums"></select>
+    <div class="col-md-6">
+        <label asp-for="MuseumId" class="form-label">Museum</label>
+        <select asp-for="MuseumId" class="form-select" asp-items="ViewBag.Museums"></select>
         <span asp-validation-for="MuseumId" class="text-danger"></span>
     </div>
-
-    <button type="submit" class="btn btn-success mt-3">Book</button>
-    <a asp-action="Index" class="btn btn-secondary mt-3">Cancel</a>
+    <div class="col-12">
+        <button type="submit" class="btn btn-success">Create</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
 </form>

@@ -17,14 +17,14 @@ namespace City_events_and_entertainment.Controllers
             _signInManager = signInManager;
         }
 
-        // ✅ GET: Register
+        
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
-        // ✅ POST: Register
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -54,14 +54,14 @@ namespace City_events_and_entertainment.Controllers
             return View(model);
         }
 
-        // ✅ GET: Login
+       
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        // ✅ POST: Login
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -85,7 +85,7 @@ namespace City_events_and_entertainment.Controllers
             return View(model);
         }
 
-        // ✅ POST: Logout
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()

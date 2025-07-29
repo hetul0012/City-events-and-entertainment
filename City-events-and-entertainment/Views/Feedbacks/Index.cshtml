@@ -1,0 +1,39 @@
+﻿@model IEnumerable<City_events_and_entertainment.Models.Feedback>
+
+@{
+    ViewData["Title"] = "Feedback List";
+}
+
+<h2 class="mb-4">Feedback List</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add Feedback</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Comment</th>
+            <th>Rating</th>
+            <th>Museum</th>
+            <th>User</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Comment</td>
+                <td>@item.Rating</td>
+                <td>@item.Museum?.Name</td>
+                <td>@item.UserId</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

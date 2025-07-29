@@ -2,15 +2,26 @@
 @{
     ViewData["Title"] = "Facility Details";
 }
-
 <h2>Facility Details</h2>
 
-<div class="card p-4">
-    <dl class="row">
-        <dt class="col-sm-3">Name</dt>
-        <dd class="col-sm-9">@Model.Name</dd>
-    </dl>
+<div class="card p-3">
+    <h4>@Model.Name</h4>
+
+    <h5 class="mt-3">Linked Museums:</h5>
+    @if (Model.MuseumFacilities != null && Model.MuseumFacilities.Any())
+    {
+        <ul>
+            @foreach (var mf in Model.MuseumFacilities)
+            {
+                <li>@mf.Museum?.Name</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No museums linked to this facility.</p>
+    }
 </div>
 
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning mt-3">Edit</a>
-<a asp-action="Index" class="btn btn-secondary mt-3">Back to List</a>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mt-3">Edit</a>
+<a asp-action="Index" class="btn btn-secondary mt-3">Back</a>

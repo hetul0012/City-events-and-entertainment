@@ -1,44 +1,51 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using City_events_and_entertainment.Data;
+﻿using City_events_and_entertainment.Data;
 using City_events_and_entertainment.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace City_events_and_entertainment.Controllers
 {
-    public class FeedbackController : Controller
+    [Authorize] 
+    public class FeedbacksController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public FeedbackController(ApplicationDbContext context)
+        public FeedbacksController(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        // GET: Feedback
         public async Task<IActionResult> Index()
         {
-            var feedbacks = _context.Feedbacks.Include(f => f.Museum);
-            return View(await feedbacks.ToListAsync());
+            var feedbacks = await _context.Feedbacks
+                .Include(f => f.Museum)
+                .ToListAsync();
+            return View(feedbacks);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        // GET: Feedback/Details/5
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null) return NotFound();
-
             var feedback = await _context.Feedbacks
                 .Include(f => f.Museum)
                 .FirstOrDefaultAsync(f => f.Id == id);
 
-            if (feedback == null) return NotFound();
+            if (feedback == null)
+                return NotFound();
 
             return View(feedback);
         }
 
+        // GET: Feedback/Create
         public IActionResult Create()
         {
             ViewBag.Museums = _context.Museums.ToList();
             return View();
         }
 
+        // POST: Feedback/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Feedback feedback)
@@ -49,48 +56,63 @@ namespace City_events_and_entertainment.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Museums = _context.Museums.ToList();
             return View(feedback);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Feedback/Edit/5
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null) return NotFound();
-
             var feedback = await _context.Feedbacks.FindAsync(id);
-            if (feedback == null) return NotFound();
+            if (feedback == null)
+                return NotFound();
 
             ViewBag.Museums = _context.Museums.ToList();
             return View(feedback);
         }
 
+        // POST: Feedback/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Feedback feedback)
         {
-            if (id != feedback.Id) return NotFound();
+            if (id != feedback.Id)
+                return NotFound();
 
             if (ModelState.IsValid)
             {
-                _context.Update(feedback);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    _context.Update(feedback);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Feedbacks.Any(f => f.Id == id))
+                        return NotFound();
+                    throw;
+                }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Museums = _context.Museums.ToList();
             return View(feedback);
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Feedback/Delete/5
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null) return NotFound();
-
             var feedback = await _context.Feedbacks
                 .Include(f => f.Museum)
                 .FirstOrDefaultAsync(f => f.Id == id);
-            if (feedback == null) return NotFound();
+
+            if (feedback == null)
+                return NotFound();
 
             return View(feedback);
         }
 
-        [HttpPost, ActionName("Delete")]
+        // POST: Feedback/Delete/5
+        [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
