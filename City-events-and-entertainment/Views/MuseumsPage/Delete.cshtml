@@ -1,0 +1,26 @@
+﻿@model City_events_and_entertainment.Models.Museum
+@{
+    ViewData["Title"] = "Delete Museum";
+}
+
+<h2>Delete Museum</h2>
+<h4>Are you sure you want to delete this museum?</h4>
+
+<div class="card p-4">
+    <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Location</dt>
+        <dd class="col-sm-9">@Model.Location</dd>
+
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger mt-3">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Cancel</a>
+</form>

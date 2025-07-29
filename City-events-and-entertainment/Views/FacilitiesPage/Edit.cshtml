@@ -1,0 +1,19 @@
+﻿@model City_events_and_entertainment.Models.Facility
+@{
+    ViewData["Title"] = "Edit Facility";
+}
+
+<h2>Edit Facility</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Cancel</a>
+</form>
