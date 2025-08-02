@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using City_events_and_entertainment.Data;
+﻿using City_events_and_entertainment.Data;
 using City_events_and_entertainment.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace City_events_and_entertainment.Controllers
 {
@@ -19,19 +19,6 @@ namespace City_events_and_entertainment.Controllers
             return View(await _context.Teams.Include(t => t.Players).ToListAsync());
         }
 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var team = await _context.Teams
-                .Include(t => t.Players)
-                .FirstOrDefaultAsync(t => t.Id == id);
-
-            if (team == null) return NotFound();
-
-            return View(team);
-        }
-
         public IActionResult Create() => View();
 
         [HttpPost]
@@ -47,13 +34,10 @@ namespace City_events_and_entertainment.Controllers
             return View(team);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null) return NotFound();
-
             var team = await _context.Teams.FindAsync(id);
             if (team == null) return NotFound();
-
             return View(team);
         }
 
@@ -72,13 +56,10 @@ namespace City_events_and_entertainment.Controllers
             return View(team);
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null) return NotFound();
-
-            var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
+            var team = await _context.Teams.FindAsync(id);
             if (team == null) return NotFound();
-
             return View(team);
         }
 

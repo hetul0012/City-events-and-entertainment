@@ -5,72 +5,72 @@ using Microsoft.EntityFrameworkCore;
 
 namespace City_events_and_entertainment.Controllers
 {
-    public class PlayersController : Controller
+    public class FacilitiesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PlayersController(ApplicationDbContext context)
+        public FacilitiesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Players.Include(p => p.Team).ToListAsync());
+            return View(await _context.Facilities.ToListAsync());
         }
 
         public IActionResult Create() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Player player)
+        public async Task<IActionResult> Create(Facility facility)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(player);
+                _context.Add(facility);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(player);
+            return View(facility);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var player = await _context.Players.FindAsync(id);
-            if (player == null) return NotFound();
-            return View(player);
+            var facility = await _context.Facilities.FindAsync(id);
+            if (facility == null) return NotFound();
+            return View(facility);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Player player)
+        public async Task<IActionResult> Edit(int id, Facility facility)
         {
-            if (id != player.Id) return NotFound();
+            if (id != facility.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
-                _context.Update(player);
+                _context.Update(facility);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(player);
+            return View(facility);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var player = await _context.Players.FindAsync(id);
-            if (player == null) return NotFound();
-            return View(player);
+            var facility = await _context.Facilities.FindAsync(id);
+            if (facility == null) return NotFound();
+            return View(facility);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var player = await _context.Players.FindAsync(id);
-            if (player != null)
+            var facility = await _context.Facilities.FindAsync(id);
+            if (facility != null)
             {
-                _context.Players.Remove(player);
+                _context.Facilities.Remove(facility);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));

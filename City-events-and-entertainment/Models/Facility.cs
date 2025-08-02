@@ -9,6 +9,6 @@ namespace City_events_and_entertainment.Models
         [Required]
         public string Name { get; set; } = string.Empty;
 
-        public ICollection<MuseumFacility>? MuseumFacilities { get; set; }
+        public ICollection<MuseumFacility> MuseumFacilities { get; set; } = new List<MuseumFacility>();
     }
 }

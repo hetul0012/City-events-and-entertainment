@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace City_events_and_entertainment.Models
 {
@@ -18,8 +17,6 @@ namespace City_events_and_entertainment.Models
         public string ImageUrl { get; set; } = string.Empty;
 
         public int? TeamId { get; set; }
-
-        [ForeignKey("TeamId")]
         public Team? Team { get; set; }
 
         public List<Booking> Bookings { get; set; } = new();

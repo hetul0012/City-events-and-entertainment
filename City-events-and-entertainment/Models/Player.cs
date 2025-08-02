@@ -17,7 +17,6 @@ namespace City_events_and_entertainment.Models
         public string Role { get; set; } = string.Empty;
 
         public int TeamId { get; set; }
-
         [ForeignKey("TeamId")]
         public Team? Team { get; set; }
     }

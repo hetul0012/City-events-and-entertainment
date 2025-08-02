@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace City_events_and_entertainment.Models
+﻿namespace City_events_and_entertainment.Models
 {
     public class MuseumFacility
     {

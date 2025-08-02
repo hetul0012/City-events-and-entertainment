@@ -2,35 +2,31 @@
 @{
     ViewData["Title"] = "Bookings";
 }
-
-<h2 class="text-center mb-4">All Bookings</h2>
-
-<div class="text-end mb-3">
-    <a asp-action="Create" class="btn btn-success">Add Booking</a>
-</div>
-
+<h2>Bookings</h2>
 <table class="table table-bordered table-striped">
-    <thead class="table-dark">
+    <thead>
         <tr>
             <th>Visitor Name</th>
+            <th>Number of Persons</th>
             <th>Date</th>
             <th>Time</th>
             <th>Museum</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var booking in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@booking.VisitorName</td>
-                <td>@booking.Date.ToShortDateString()</td>
-                <td>@booking.Time</td>
-                <td>@booking.Museum?.Name</td>
+                <td>@item.VisitorName</td>
+                <td>@item.NumberOfPersons</td>
+                <td>@item.Date.ToShortDateString()</td>
+                <td>@item.Time.ToShortTimeString()</td>
+                <td>@item.Museum.Name</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@booking.Id" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@booking.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@booking.Id" class="btn btn-danger btn-sm">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         }

@@ -4,6 +4,7 @@ using City_events_and_entertainment.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace City_events_and_entertainment.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250801210931_UpdateBookingModel")]
+    partial class UpdateBookingModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -430,7 +433,7 @@ namespace City_events_and_entertainment.Data.Migrations
             modelBuilder.Entity("City_events_and_entertainment.Models.Museum", b =>
                 {
                     b.HasOne("City_events_and_entertainment.Models.Team", "Team")
-                        .WithMany()
+                        .WithMany("Museums")
                         .HasForeignKey("TeamId");
 
                     b.Navigation("Team");
@@ -533,6 +536,8 @@ namespace City_events_and_entertainment.Data.Migrations
 
             modelBuilder.Entity("City_events_and_entertainment.Models.Team", b =>
                 {
+                    b.Navigation("Museums");
+
                     b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
