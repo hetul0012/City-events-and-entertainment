@@ -1,35 +1,47 @@
 ﻿@model IEnumerable<City_events_and_entertainment.Models.Museum>
 
+@{
+    ViewData["Title"] = "Home";
+}
+
 <div class="container mt-4">
     <h2 class="text-center mb-4">Explore Our Museums</h2>
+
     @foreach (var museum in Model)
     {
         <div class="card shadow mb-4">
-            <div class="row no-gutters">
+            <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="@museum.ImageUrl" class="card-img" alt="@museum.Name">
+                    <img src="@museum.ImageUrl" class="img-fluid rounded-start" alt="@museum.Name"
+                         style="height: 100%; max-height: 250px; object-fit: cover; width: 100%;">
                 </div>
+
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">@museum.Name</h5>
-                        <p><strong>Location:</strong> @museum.Location</p>
+                        <p class="text-muted mb-1"><strong>Location:</strong> @museum.Location</p>
                         <p>@museum.Description</p>
 
                         @if (museum.Team != null)
                         {
-                            <p><strong>Associated Team:</strong> @museum.Team.Name</p>
+                            <p class="mb-1"><strong>Associated Team:</strong> @museum.Team.Name (@museum.Team.City)</p>
                         }
 
-                        <p>
-                            <strong>Facilities:</strong>
-                            @foreach (var mf in museum.MuseumFacilities)
-                            {
-                                <span class="badge bg-info text-dark">@mf.Facility.Name</span>
-                            }
-                        </p>
+                        @if (museum.MuseumFacilities.Any())
+                        {
+                            <p class="mb-1"><strong>Facilities:</strong></p>
+                            <div class="mb-2">
+                                @foreach (var mf in museum.MuseumFacilities)
+                                {
+                                    <span class="badge bg-info text-dark me-1">@mf.Facility.Name</span>
+                                }
+                            </div>
+                        }
 
-                        <a class="btn btn-success" href="/Bookings/Create?museumId=@museum.Id">Book Now</a>
-                        <a class="btn btn-outline-primary" href="/Feedbacks/Create?museumId=@museum.Id">Add Feedback</a>
+                        <div class="mt-3">
+                            <a class="btn btn-success me-2" href="/Bookings/Create?museumId=@museum.Id">Book Now</a>
+                            <a class="btn btn-outline-primary" href="/Feedbacks/Create?museumId=@museum.Id">Add Feedback</a>
+                        </div>
                     </div>
                 </div>
             </div>

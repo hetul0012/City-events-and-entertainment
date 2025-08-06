@@ -1,47 +1,36 @@
 ﻿@model IEnumerable<City_events_and_entertainment.Models.Museum>
+
 @{
     ViewData["Title"] = "Museums";
 }
 
-<h2 class="text-center mb-4">Museums</h2>
+<div class="container mt-4">
+    <h2>Museums</h2>
+    <a asp-action="Create" class="btn btn-primary mb-3">Add New Museum</a>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Add New Museum</a>
-</p>
-
-<table class="table table-striped table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var museum in Model)
-        {
+    <table class="table table-bordered table-striped">
+        <thead>
             <tr>
-                <td>@museum.Name</td>
-                <td>@museum.Location</td>
-                <td>@museum.Description</td>
-                <td>
-                    @if (!string.IsNullOrEmpty(museum.ImageUrl))
-                    {
-                        <img src="@museum.ImageUrl" alt="@museum.Name" width="100" class="img-thumbnail" />
-                    }
-                    else
-                    {
-                        <span>No image</span>
-                    }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@museum.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Details" asp-route-id="@museum.Id" class="btn btn-sm btn-info">Details</a>
-                    <a asp-action="Delete" asp-route-id="@museum.Id" class="btn btn-sm btn-danger">Delete</a>
-                </td>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Team</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Location</td>
+                    <td>@item.Team?.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

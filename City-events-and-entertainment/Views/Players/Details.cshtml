@@ -4,9 +4,9 @@
     ViewData["Title"] = "Player Details";
 }
 
-<h2>Player Details</h2>
+<div class="container mt-4">
+    <h2>Player Details</h2>
 
-<div class="card p-4">
     <dl class="row">
         <dt class="col-sm-3">Name</dt>
         <dd class="col-sm-9">@Model.Name</dd>
@@ -20,7 +20,7 @@
         <dt class="col-sm-3">Team</dt>
         <dd class="col-sm-9">@Model.Team?.Name</dd>
     </dl>
-</div>
 
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-<a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

@@ -1,7 +1,7 @@
-﻿using City_events_and_entertainment.Data;
-using City_events_and_entertainment.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using City_events_and_entertainment.Data;
+using City_events_and_entertainment.Models;
 
 namespace City_events_and_entertainment.Controllers
 {
@@ -14,16 +14,38 @@ namespace City_events_and_entertainment.Controllers
             _context = context;
         }
 
+        // GET: Team
         public async Task<IActionResult> Index()
         {
             return View(await _context.Teams.Include(t => t.Players).ToListAsync());
         }
 
-        public IActionResult Create() => View();
+        // GET: Team/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Teams == null)
+                return NotFound();
 
+            var team = await _context.Teams
+                .Include(t => t.Players)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (team == null)
+                return NotFound();
+
+            return View(team);
+        }
+
+        // GET: Team/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Team/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Team team)
+        public async Task<IActionResult> Create([Bind("Id,Name,Coach,City")] Team team)
         {
             if (ModelState.IsValid)
             {
@@ -34,35 +56,62 @@ namespace City_events_and_entertainment.Controllers
             return View(team);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        // GET: Team/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
+            if (id == null || _context.Teams == null)
+                return NotFound();
+
             var team = await _context.Teams.FindAsync(id);
-            if (team == null) return NotFound();
+            if (team == null)
+                return NotFound();
+
             return View(team);
         }
 
+        // POST: Team/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Team team)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Coach,City")] Team team)
         {
-            if (id != team.Id) return NotFound();
+            if (id != team.Id)
+                return NotFound();
 
             if (ModelState.IsValid)
             {
-                _context.Update(team);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    _context.Update(team);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TeamExists(team.Id))
+                        return NotFound();
+                    else
+                        throw;
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(team);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        // GET: Team/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            var team = await _context.Teams.FindAsync(id);
-            if (team == null) return NotFound();
+            if (id == null || _context.Teams == null)
+                return NotFound();
+
+            var team = await _context.Teams
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (team == null)
+                return NotFound();
+
             return View(team);
         }
 
+        // POST: Team/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -73,7 +122,13 @@ namespace City_events_and_entertainment.Controllers
                 _context.Teams.Remove(team);
                 await _context.SaveChangesAsync();
             }
+
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool TeamExists(int id)
+        {
+            return _context.Teams.Any(e => e.Id == id);
         }
     }
 }

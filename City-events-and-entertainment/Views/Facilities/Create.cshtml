@@ -1,15 +1,20 @@
 ﻿@model City_events_and_entertainment.Models.Facility
+
 @{
     ViewData["Title"] = "Create Facility";
 }
-<h2>Create Facility</h2>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-success mt-2">Create</button>
-    <a asp-action="Index" class="btn btn-secondary mt-2">Back</a>
-</form>
+<div class="container mt-4">
+    <h2>Add New Facility</h2>
+
+    <form asp-action="Create">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

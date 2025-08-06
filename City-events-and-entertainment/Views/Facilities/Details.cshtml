@@ -1,27 +1,25 @@
 ﻿@model City_events_and_entertainment.Models.Facility
+
 @{
     ViewData["Title"] = "Facility Details";
 }
-<h2>Facility Details</h2>
 
-<div class="card p-3">
-    <h4>@Model.Name</h4>
+<div class="container mt-4">
+    <h2>Facility Details</h2>
 
-    <h5 class="mt-3">Linked Museums:</h5>
-    @if (Model.MuseumFacilities != null && Model.MuseumFacilities.Any())
-    {
-        <ul>
+    <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Used In Museums</dt>
+        <dd class="col-sm-9">
             @foreach (var mf in Model.MuseumFacilities)
             {
-                <li>@mf.Museum?.Name</li>
+                <div>@mf.Museum?.Name</div>
             }
-        </ul>
-    }
-    else
-    {
-        <p>No museums linked to this facility.</p>
-    }
-</div>
+        </dd>
+    </dl>
 
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mt-3">Edit</a>
-<a asp-action="Index" class="btn btn-secondary mt-3">Back</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

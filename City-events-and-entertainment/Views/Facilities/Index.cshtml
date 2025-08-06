@@ -1,47 +1,39 @@
 ﻿@model IEnumerable<City_events_and_entertainment.Models.Facility>
+
 @{
     ViewData["Title"] = "Facilities";
 }
-<h2>Facilities</h2>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Add Facility</a>
-</p>
+<div class="container mt-4">
+    <h2>Facilities</h2>
+    <a asp-action="Create" class="btn btn-primary mb-3">Add New Facility</a>
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Museums Linked</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table table-bordered table-striped">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>
-                    @if (item.MuseumFacilities != null && item.MuseumFacilities.Any())
-                    {
-                        <ul>
-                            @foreach (var mf in item.MuseumFacilities)
-                            {
-                                <li>@mf.Museum?.Name</li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <span>No linked museums</span>
-                    }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
-                </td>
+                <th>Name</th>
+                <th>Museums Using This</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        @foreach (var mf in item.MuseumFacilities)
+                        {
+                            <span class="badge bg-info text-dark">@mf.Museum?.Name</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

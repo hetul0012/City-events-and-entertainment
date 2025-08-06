@@ -1,36 +1,38 @@
 ﻿@model City_events_and_entertainment.Models.Player
 
 @{
-    ViewData["Title"] = "Add Player";
+    ViewData["Title"] = "Create Player";
 }
 
-<h2>Add Player</h2>
+<div class="container mt-4">
+    <h2>Add New Player</h2>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+    <form asp-action="Create">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Age"></label>
-        <input asp-for="Age" type="number" class="form-control" />
-        <span asp-validation-for="Age" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label asp-for="Age" class="form-label"></label>
+            <input asp-for="Age" class="form-control" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Role"></label>
-        <input asp-for="Role" class="form-control" />
-        <span asp-validation-for="Role" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label asp-for="Role" class="form-label"></label>
+            <input asp-for="Role" class="form-control" />
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="TeamId">Team</label>
-        <select asp-for="TeamId" class="form-control" asp-items="ViewBag.Teams"></select>
-        <span asp-validation-for="TeamId" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label asp-for="TeamId" class="form-label"></label>
+            <select asp-for="TeamId" class="form-select" asp-items="ViewBag.TeamId"></select>
+            <span asp-validation-for="TeamId" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a asp-action="Index" class="btn btn-secondary">Back</a>
-</form>
+        <button type="submit" class="btn btn-success">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
