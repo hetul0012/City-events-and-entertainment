@@ -1,36 +1,35 @@
-﻿@model IEnumerable<City_events_and_entertainment.Models.Feedback>
-
+﻿  @model IEnumerable<City_events_and_entertainment.Models.Feedback>
 @{
     ViewData["Title"] = "Feedbacks";
 }
 
-<div class="container mt-4">
-    <h2>Feedbacks</h2>
-    <a asp-action="Create" class="btn btn-primary mb-3">Add Feedback</a>
+<h1 class="mt-4">Feedback List</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Feedback</a>
+</p>
 
-    <table class="table table-bordered table-striped">
-        <thead>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Comment</th>
+            <th>Rating</th>
+            <th>Museum</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>Comment</th>
-                <th>Rating</th>
-                <th>Museum</th>
-                <th>Actions</th>
+                <td>@item.Comment</td>
+                <td>@item.Rating</td>
+                <td>@item.Museum?.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Comment</td>
-                    <td>@item.Rating</td>
-                    <td>@item.Museum?.Name</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        }
+    </tbody>
+</table>
