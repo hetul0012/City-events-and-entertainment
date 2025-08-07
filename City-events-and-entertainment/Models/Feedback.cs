@@ -15,7 +15,7 @@ namespace City_events_and_entertainment.Models
         public int Rating { get; set; }
 
         [Required]
-        public int MuseumId { get; set; }
+        public int MuseumId { get; set; }   
 
         [ForeignKey("MuseumId")]
         public Museum Museum { get; set; } = null!;
