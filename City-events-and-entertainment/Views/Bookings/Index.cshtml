@@ -1,39 +1,40 @@
 ﻿@model IEnumerable<City_events_and_entertainment.Models.Booking>
+
 @{
     ViewData["Title"] = "Bookings";
 }
 
-<h1 class="mt-4">Booking List</h1>
-<p>
-    <a asp-action="Create" class="btn btn-primary">Add New Booking</a>
-</p>
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Visitor Name</th>
-            <th>Number of Persons</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Museum</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.VisitorName</td>
-                <td>@item.NumberOfPersons</td>
-                <td>@item.Date.ToShortDateString()</td>
-                <td>@item.Time.ToShortTimeString()</td>
-                <td>@item.Museum?.Name</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container mt-4">
+    <h2>Bookings List</h2>
+    <a class="btn btn-primary mb-3" asp-action="Create">Create New Booking</a>
 
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Visitor Name</th>
+                <th>Persons</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Museum</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.VisitorName</td>
+                    <td>@item.NumberOfPersons</td>
+                    <td>@item.Date.ToShortDateString()</td>
+                    <td>@item.Time.ToShortTimeString()</td>
+                    <td>@item.Museum?.Name</td>
+                    <td>
+                        <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
